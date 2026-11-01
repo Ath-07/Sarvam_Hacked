@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BolOrder · Voice to order</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">bol<span>order</span></a>
+    <span class="top-note">VOICE → VERIFIED ORDER</span>
+  </header>
+  <main>
+    <section class="intro">
+      <div>
+        <p class="eyebrow">ORDER DESK · MVP</p>
+        <h1>From a voice note<br>to a purchase order.</h1>
+        <p class="intro-copy">Speak or paste a customer request. Review every detail before confirming.</p>
+      </div>
+      <div class="language-chip"><span></span> Hindi · Marathi · English · Hinglish</div>
+    </section>
+
+    <section class="workspace">
+      <div class="panel intake">
+        <div class="panel-heading">
+          <div><p class="eyebrow">01 / INTAKE</p><h2>Customer request</h2></div>
+          <span class="step">INPUT</span>
+        </div>
+        <div class="record-row">
+          <button id="record-button" class="button secondary" type="button">● &nbsp;Record voice note</button>
+          <span id="record-status" class="muted">or upload an audio file</span>
+        </div>
+        <label class="upload-box" for="audio-file">
+          <span class="upload-icon">↑</span><span><strong>Choose an audio file</strong><small>WAV, MP3, M4A, WEBM · up to 30 seconds</small></span>
+          <input id="audio-file" type="file" accept="audio/*">
+        </label>
+        <div class="divider"><span>OR ENTER A TRANSCRIPT</span></div>
+        <label class="field-label" for="language-code">Transcript language</label>
+        <select id="language-code" class="language-select">
+          <option value="hi-IN">Hindi</option>
+          <option value="mr-IN">Marathi</option>
+          <option value="en-IN">English</option>
+        </select>
+        <label class="field-label" for="transcript">Customer's words</label>
+        <textarea id="transcript" rows="5" placeholder="E.g. कल 15 किलो आटा और 2 Fortune तेल भेज देना..."></textarea>
+        <button id="extract-button" class="button primary" type="button">Create order draft <span>→</span></button>
+        <p class="privacy-note">Audio is processed for transcription and not saved. Drafts stay in this local app.</p>
+      </div>
+
+      <div class="panel order-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">02 / HUMAN REVIEW</p><h2>Order draft</h2></div>
+          <span id="order-status" class="status-badge">NO DRAFT</span>
+        </div>
+        <div id="empty-state" class="empty-state">
+          <div class="empty-mark">↳</div>
+          <strong>Your draft will appear here</strong>
+          <p>Unclear or unmatched details need your review. Nothing is confirmed automatically.</p>
+        </div>
+        <div id="draft" class="draft hidden">
+          <div class="transcript-card">
+            <div class="subheading">TRANSCRIPT <span id="detected-language"></span></div>
+            <p id="transcript-preview"></p>
+          </div>
+          <div id="questions" class="questions hidden"></div>
+          <div class="section-title"><span>ITEMS</span><button id="add-item" class="text-button" type="button">+ Add item</button></div>
+          <div id="items" class="items"></div>
+          <div class="form-grid">
+            <label><span>Customer</span><input id="customer-name" type="text" placeholder="Name (if known)"></label>
+            <label><span>Delivery instructions</span><input id="delivery" type="text" placeholder="Address, date, time"></label>
+          </div>
+          <button id="save-button" class="button secondary full" type="button">Save review changes</button>
+          <div class="confirm-row">
+            <p>Confirm only after checking the transcript and every item.</p>
+            <button id="confirm-button" class="button confirm" type="button">Confirm order</button>
+          </div>
+          <div id="confirmed" class="confirmed hidden">
+            <strong>Order confirmed</strong>
+            <button id="speak-button" class="text-button" type="button">▶ Play spoken confirmation</button>
+            <audio id="confirmation-player" controls class="hidden"></audio>
+          </div>
+          <p id="error" class="error hidden" role="alert"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="catalog-panel">
+      <div class="catalog-heading"><div><p class="eyebrow">MOCK INVENTORY</p><h2>Product catalog</h2></div><span>Seed data · edit before real use</span></div>
+      <div id="catalog" class="catalog-list"></div>
+    </section>
+    <section class="history-panel">
+      <div class="catalog-heading"><div><p class="eyebrow">LOCAL DATABASE</p><h2>Recent orders</h2></div></div>
+      <div id="history" class="history-list"><span class="muted">No orders yet</span></div>
+    </section>
+  </main>
+  <footer>BolOrder · An order is never submitted without your explicit confirmation.</footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>
