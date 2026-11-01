@@ -148,7 +148,7 @@ def extract_order(transcript: str) -> dict[str, Any]:
     user_message = f"Catalog: {catalog}\n\nCustomer message:\n{transcript}"
     try:
         response = get_client().chat.completions(
-            model="sarvam-105b",
+            model="sarvam-105b-conversations",
             messages=[
                 {"role": "system", "content": system_prompt},
                 {"role": "user", "content": user_message},
